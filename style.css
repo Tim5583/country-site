@@ -20,19 +20,30 @@ body {
     background-color: var(--Very-Light-Gray--Light-Mode-Background);
 }
 
+body.dark {
+    background-color: var(--Very-Dark-Blue--Dark-Mode-Background);
+}
+
 /* main-header */
 .main-header {
     background-color: var(--White--Dark-Mode-Text---Light-Mode-Elements);
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    color: var(--Very-Dark-Blue--Light-Mode-Text);
     padding: 2rem 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
+body.dark .main-header {
+    background-color: var(--Dark-Blue-Dark--Mode-Elements);
+    color: var(--White--Dark-Mode-Text---Light-Mode-Elements);
+}
+
 .main-header h1 {
     font-size: 1.2rem;
     font-size: clamp(1.15rem, 4vw, 2rem);
+    cursor: pointer;
 }
 
 .main-header .theme {
@@ -40,6 +51,11 @@ body {
     display: flex;
     align-items: center;
     border: none;
+    cursor: pointer;
+}
+
+body.dark .main-header .theme {
+    color: var(--White--Dark-Mode-Text---Light-Mode-Elements);
 }
 
 .main-header .theme .fa-regular {
@@ -69,9 +85,17 @@ body {
     border-radius: 10px;
 }
 
+body.dark .form-control {
+    background-color: var(--Dark-Blue-Dark--Mode-Elements);
+}
+
 .form-control label {
     margin: auto .5rem;
     opacity: .3;
+}
+
+body.dark .form-control label {
+    color: var(--White--Dark-Mode-Text---Light-Mode-Elements);
 }
 
 .form-control input {
@@ -81,8 +105,17 @@ body {
     flex: 1;
 }
 
+body.dark .form-control input {
+    color: var(--White--Dark-Mode-Text---Light-Mode-Elements);
+}
+
 .form-control input::placeholder {
     opacity: .3;
+}
+
+body.dark .form-control input::placeholder {
+    color: var(--White--Dark-Mode-Text---Light-Mode-Elements);
+    opacity: .5;
 }
 
 .form-control input:focus, .form-control:active {
@@ -98,6 +131,12 @@ body {
     border-radius: 8px
 }
 
+body.dark .region {
+    background-color: var(--Dark-Blue-Dark--Mode-Elements);
+    color: var(--White--Dark-Mode-Text---Light-Mode-Elements);
+}
+
+/* cards  */
 .cards {
     margin: auto;
     display: flex;
@@ -115,12 +154,23 @@ body {
     overflow: hidden;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
     height: 450px;
+    transition: transform 500ms ease-in;
+}
+
+.card:hover {
+    transform: scale(.98);
+    cursor: pointer;
+}
+
+body.dark .card {
+    background-color: var(--Dark-Blue-Dark--Mode-Elements);
+    color: var(--White--Dark-Mode-Text---Light-Mode-Elements);
 }
 
 .card img {
     width: 100%;
     height: 200px;
-    object-fit: fill;
+    object-fit: cover;
 }
 
 .card-details {
@@ -132,6 +182,7 @@ body {
     text-align: center;
     margin-bottom: .5rem;
     font-size: clamp(1rem, 1.5rem , 2rem);
+    line-height: 1.3;
 }
 
 .card-details p {

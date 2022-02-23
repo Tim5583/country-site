@@ -1,7 +1,13 @@
 const cards = document.querySelector(".cards");
 const userSearch = document.querySelector("#search-country");
 const userSelectedRegion = document.querySelector("#region");
+const header = document.querySelector("h1");
+const body = document.querySelector("body");
+const themeChangeBtn = document.querySelector(".theme");
 
+themeChangeBtn.addEventListener("click", () => {
+    body.classList.toggle("dark");
+})
 
 function createCard(country) {
     const div = document.createElement("div");
@@ -19,7 +25,9 @@ function createCard(country) {
 }
 
 function getAllCountries() {
-    fetch("https://restcountries.com/v3.1/all").then(res => res.json()).then(countries => {
+    fetch("https://restcountries.com/v3.1/all")
+    .then(res => res.json())
+    .then(countries => {
         for (let country of countries) {
             createCard(country);
         }
@@ -30,14 +38,37 @@ function getAllCountries() {
 userSearch.addEventListener("keyup", (e) => {
     if (e.key == "Enter") {
         cards.innerHTML = null;
-        fetch(`https://restcountries.com/v3.1/name/${e.target.value}`).then(res => res.json()).then(data => {
+        fetch(`https://restcountries.com/v3.1/name/${e.target.value}`)
+        .then(res => res.json())
+        .then(data => {
             for (let country of data) {
                 createCard(country)
             }
         });
-        console.log(e.target.value)
+        e.target.value = null;
+    }
+});
 
+
+userSelectedRegion.addEventListener("change", (e) => {
+    const region = e.target.value;
+    if (region !== "") {
+        cards.innerHTML = null;
+        fetch(`https://restcountries.com/v3.1/region/${region}`)
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            for (let country of data) {
+                createCard(country);
+            }
+        });
     }
 
 })
+
+header.addEventListener("click", () => {
+    cards.innerHTML = null;
+    getAllCountries()
+});
+
 getAllCountries();
