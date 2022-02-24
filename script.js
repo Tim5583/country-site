@@ -5,9 +5,15 @@ const header = document.querySelector("h1");
 const body = document.querySelector("body");
 const themeChangeBtn = document.querySelector(".theme");
 
+
 themeChangeBtn.addEventListener("click", () => {
     body.classList.toggle("dark");
-})
+});
+
+// function eventListenerToCards() {
+
+// }
+
 
 function createCard(country) {
     const div = document.createElement("div");
@@ -23,6 +29,7 @@ function createCard(country) {
     div.classList.add("card");
     cards.append(div);
 }
+
 
 function getAllCountries() {
     fetch("https://restcountries.com/v3.1/all")
@@ -66,9 +73,10 @@ userSelectedRegion.addEventListener("change", (e) => {
 
 })
 
+
 header.addEventListener("click", () => {
     cards.innerHTML = null;
     getAllCountries()
 });
 
-getAllCountries();
+// getAllCountries();

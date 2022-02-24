@@ -193,6 +193,89 @@ body.dark .card {
     font-weight: 600;
 }
 
+/* country info cards  */
+
+.country-info-card {
+    padding: 1rem auto;
+    margin: 1rem;
+    max-width: 1200px;
+}
+
+.country-info__flag .backBtn{
+    padding: .4rem 1.2rem;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--White--Dark-Mode-Text---Light-Mode-Elements);
+    margin: 1rem auto;
+    cursor: pointer;
+    color: var(--Dark-Gray--Light-Mode-Input);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.083), -2px -2px 5px rgba(0, 0, 0, 0.083);
+}
+
+body.dark .country-info__flag .backBtn {
+    background-color: var(--Dark-Blue-Dark--Mode-Elements);
+    color: var(--White--Dark-Mode-Text---Light-Mode-Elements);
+}
+
+.fa-circle-left {
+    margin-right: .5rem;
+    color: rgba(0, 0, 0, 0.679);
+}
+
+body.dark .fa-circle-left {
+    color: #fff;
+}
+
+.country-info__flag img {
+    width: 100%;
+    margin: 1.5rem auto;
+}
+
+/* country info card details  */
+
+.country-info__details {
+    margin: 2rem;
+}
+
+body.dark .country-info__details {
+    color: var(--White--Dark-Mode-Text---Light-Mode-Elements);
+}
+
+.country-details-col {
+    margin: 1.5rem auto;
+}
+
+.country-details-col h2 {
+    margin: 1rem auto;
+}
+
+.country-border p{
+    margin-bottom: 1rem;
+}
+
+.country-span-title {
+    font-weight: 600;
+}
+
+.country-border__buttons {
+    text-align: center;
+}
+
+.country-border__buttons > *{
+    padding: .4rem 1.2rem;
+    margin: .1rem;
+    border: none;
+    background-color: var(--White--Dark-Mode-Text---Light-Mode-Elements);
+    border-radius: 4px;
+    color: var(--Dark-Gray--Light-Mode-Input);
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.083), -2px -2px 5px rgba(0, 0, 0, 0.083);
+}
+
+body.dark .country-border__buttons > * {
+    background-color: var(--Dark-Blue-Dark--Mode-Elements);
+    color: var(--White--Dark-Mode-Text---Light-Mode-Elements);
+}
 
 @media (min-width: 550px) {
     .form-control {
@@ -218,4 +301,41 @@ body.dark .card {
     .main-header {
         padding: 2rem 10vw;
     }
+}
+
+@media (min-width: 1095px) {
+    .country-info-card {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .country-info__details {
+        width: 470px;
+    }
+
+    .country-info__flag img {
+        display: block;
+        max-width: 600px;
+    }
+
+    .country-details-row {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .col-2 {
+        margin-left: 1rem;
+    }
+
+    .country-border {
+        display: flex;
+        justify-content: space-between;
+    }
+
+}
+
+.hidden {
+    display: none;
 }
