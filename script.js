@@ -4,15 +4,26 @@ const userSelectedRegion = document.querySelector("#region");
 const header = document.querySelector("h1");
 const body = document.querySelector("body");
 const themeChangeBtn = document.querySelector(".theme");
+const searchOpctions = document.querySelector(".form-inputs");
 
 
 themeChangeBtn.addEventListener("click", () => {
     body.classList.toggle("dark");
 });
 
-// function eventListenerToCards() {
-
-// }
+function eventListenerToCards() {
+    cards.childNodes.forEach(item => {
+        item.addEventListener("click", (e) => {
+            fetch(`https://restcountries.com/v3.1/name/${e.target.innerText}?fullText=true`)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                createLargeCard(data[0]);
+                searchOpctions.classList.add("hidden");
+            });
+        });
+    });
+}
 
 
 function createCard(country) {
@@ -31,6 +42,45 @@ function createCard(country) {
 }
 
 
+function createLargeCard(country) {
+    const div = document.createElement("div");
+    div.innerHTML = `
+    <div class="country-info__flag">
+    <button class="backBtn"><i class="fa-regular fa-circle-left"></i>Back</button>
+    <img src="${country.flags.svg}" alt="${country.name.common} flag png">
+    </div>
+    <div class="country-info__details">
+        <h2>${country.name.official}</h2>
+        <div class="country-details-row">
+            <div class="country-details-col">
+                <p><span class="country-span-title">Native Name: </span>${country.name.common}</p>
+                <p><span class="country-span-title">Population: </span>${country.population}</p>
+                <p><span class="country-span-title">Region: </span>${country.region}</p>
+                <p><span class="country-span-title">Sub Regin: </span>${country.subregion}</p>
+                <p><span class="country-span-title">Capital: </span>${country.capital}</p>
+            </div>
+            <div class="country-details-col col-2">
+                <p><span class="country-span-title">Top Level Domain: </span>${country.tld}</p>
+                <p><span class="country-span-title">Currencies: </span>${country.currencies[Object.keys(country.currencies)[0]].name}</p>
+                <p><span class="country-span-title">Languages: </span>${Object.values(country.languages)}</p>
+            </div>
+        </div>
+        <div class="country-border">
+            <p class="country-span-title">Border Countrys: </p>
+            <div class="country-border__buttons">
+                <button>Franch</button>
+                <button>Germany</button>
+                <button>Netherlands</button>
+            </div>
+        </div>
+    </div>
+    `;
+    div.classList.add("country-info-card");
+    cards.innerHTML = null;
+    cards.append(div);
+}
+
+
 function getAllCountries() {
     fetch("https://restcountries.com/v3.1/all")
     .then(res => res.json())
@@ -38,6 +88,8 @@ function getAllCountries() {
         for (let country of countries) {
             createCard(country);
         }
+        eventListenerToCards();
+        searchOpctions.classList.remove("hidden");
     });
 }
 
@@ -51,6 +103,7 @@ userSearch.addEventListener("keyup", (e) => {
             for (let country of data) {
                 createCard(country)
             }
+            eventListenerToCards();
         });
         e.target.value = null;
     }
@@ -64,13 +117,12 @@ userSelectedRegion.addEventListener("change", (e) => {
         fetch(`https://restcountries.com/v3.1/region/${region}`)
         .then(res => res.json())
         .then(data => {
-            console.log(data)
             for (let country of data) {
                 createCard(country);
             }
+            eventListenerToCards();
         });
     }
-
 })
 
 
@@ -79,4 +131,4 @@ header.addEventListener("click", () => {
     getAllCountries()
 });
 
-// getAllCountries();
+getAllCountries();
