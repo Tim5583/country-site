@@ -51,17 +51,22 @@ function createCard(country) {
 // create deatils country card (largecard)  
 function createLargeCard(country) {
     console.log(country);
+    // create all div elements 
     const mainDiv = document.createElement("div");
     const countryInfoDiv = document.createElement("div");
     const countryBorderDiv = document.createElement("div");
     const countryBorderButtonsDiv = document.createElement("div");
+
+    // add classes to div elements 
     mainDiv.classList.add("country-info-card");
     countryInfoDiv.classList.add("country-info__details");
     countryBorderDiv.classList.add("country-border");
     countryBorderButtonsDiv.classList.add("country-border__buttons");
+
+    // set div's inner htmls 
     mainDiv.innerHTML = `
     <div class="country-info__flag">
-        <button class="backBtn"><i class="fa-regular fa-circle-left"></i>Back</button>
+        <button class="backBtn" onclick="getAllCountries()"><i class="fa-regular fa-circle-left"></i>Back</button>
         <img src="${country.flags.svg}" alt="picture of ${country.name.common} flag">
     </div>
     `;
@@ -85,6 +90,7 @@ function createLargeCard(country) {
 
     countryBorderDiv.innerHTML = `<p class="country-span-title">Border Countrys: </p>`;
 
+    // check border exists or not because some countries don't have borders
     if (country.borders) {
         for (let code of country.borders) {
             fetch(`https://restcountries.com/v2/alpha/${code}`)
@@ -116,6 +122,7 @@ function createLargeCard(country) {
 
 // fetch all countries and append to the cards-div as cards
 function getAllCountries() {
+    cards.innerHTML = null;
     fetch("https://restcountries.com/v3.1/all")
     .then(res => res.json())
     .then(countries => {

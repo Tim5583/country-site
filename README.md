@@ -1,4 +1,4 @@
-# REST Countries API --> ""in progress""
+# REST Countries API
 
 ## Table of contents
 
@@ -15,6 +15,8 @@
 
 ![the screenshot](./Screenshot.png)
 
+- [live-URL]()
+
 ## My process
 
 ### Built with
@@ -23,9 +25,11 @@
 - CSS custom properties
 - Flexbox
 - javascript
+- API
 
 ### Useful resources
 
+- [REST Countries](https://restcountries.com/#api-endpoints-v2-code) - api that used in this project
 - [w3schools](https://www.w3schools.com/) - tutorial for html and css
 - [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/HTML) - Documentation for html
 
