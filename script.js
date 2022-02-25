@@ -40,6 +40,38 @@ function createCard(country) {
     cards.append(div);
 }
 
+function createLargeCard() {
+    
+}
+
+function getAllCountries() {
+    fetch("https://restcountries.com/v3.1/all")
+    .then(res => res.json())
+    .then(countries => {
+        for (let country of countries) {
+            createCard(country);
+        }
+        eventListenerToCards();
+        searchOpctions.classList.remove("hidden");
+    });
+}
+
+
+userSearch.addEventListener("keyup", (e) => {
+    if (e.key == "Enter") {
+        cards.innerHTML = null;
+        fetch(`https://restcountries.com/v3.1/name/${e.target.value}`)
+        .then(res => res.json())
+        .then(data => {
+            for (let country of data) {
+                createCard(country)
+            }
+            eventListenerToCards();
+        });
+        e.target.value = null;
+    }
+});
+
 
 userSelectedRegion.addEventListener("change", (e) => {
     const region = e.target.value;
