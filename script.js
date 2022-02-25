@@ -17,7 +17,6 @@ function eventListenerToCards() {
             fetch(`https://restcountries.com/v3.1/name/${e.target.innerText}?fullText=true`)
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 createLargeCard(data[0]);
                 searchOpctions.classList.add("hidden");
             });
@@ -44,9 +43,10 @@ function createCard(country) {
 
 function createLargeCard(country) {
     const div = document.createElement("div");
+    div.classList.add("country-info-card");
     div.innerHTML = `
     <div class="country-info__flag">
-    <button class="backBtn"><i class="fa-regular fa-circle-left"></i>Back</button>
+    <button class="backBtn" onclick="window.history.back()"><i class="fa-regular fa-circle-left"></i>Back</button>
     <img src="${country.flags.svg}" alt="${country.name.common} flag png">
     </div>
     <div class="country-info__details">
@@ -65,19 +65,34 @@ function createLargeCard(country) {
                 <p><span class="country-span-title">Languages: </span>${Object.values(country.languages)}</p>
             </div>
         </div>
-        <div class="country-border">
-            <p class="country-span-title">Border Countrys: </p>
-            <div class="country-border__buttons">
-                <button>Franch</button>
-                <button>Germany</button>
-                <button>Netherlands</button>
-            </div>
-        </div>
     </div>
     `;
-    div.classList.add("country-info-card");
-    cards.innerHTML = null;
-    cards.append(div);
+
+    const countryBorder = document.createElement("div");
+    countryBorder.classList.add("country-border");
+    countryBorder.innerHTML = `<p class="country-span-title">Border Countrys: </p>`;
+
+    const countryBorderBtns = document.createElement("div");
+    countryBorderBtns.classList.add("country-border__buttons");
+    
+    for (let border in country.borders) {
+        let border_i = country.borders[border]
+        console.log(border_i);
+        fetch(`https://restcountries.com/v2/alpha/${border_i}`)
+        .then(res => res.json())
+        .then(data => {
+            console.log(data.name);
+            countryBorderBtns.innerHTML += `<button>${data.name}</button>`;
+            countryBorder.append(countryBorderBtns);
+
+            div.innerHTML += countryBorder;
+
+            cards.innerHTML = null;
+            cards.append(div);
+            console.log(countryBorder);
+            console.log(countryBorderBtns);
+        });
+    }
 }
 
 
