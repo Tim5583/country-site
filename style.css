@@ -261,6 +261,7 @@ body.dark .country-info__details {
 
 .country-span-title {
     font-weight: 600;
+    white-space: nowrap;
 }
 
 .country-border__buttons {

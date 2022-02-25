@@ -6,6 +6,7 @@ const body = document.querySelector("body");
 const themeChangeBtn = document.querySelector(".theme");
 const searchOpctions = document.querySelector(".form-inputs");
 
+
 // theme changing button 
 themeChangeBtn.addEventListener("click", () => {
     body.classList.toggle("dark");
@@ -46,7 +47,10 @@ function createCard(country) {
     cards.append(div);
 }
 
+
+// create deatils country card (largecard)  
 function createLargeCard(country) {
+    console.log(country);
     const mainDiv = document.createElement("div");
     const countryInfoDiv = document.createElement("div");
     const countryBorderDiv = document.createElement("div");
@@ -81,20 +85,34 @@ function createLargeCard(country) {
 
     countryBorderDiv.innerHTML = `<p class="country-span-title">Border Countrys: </p>`;
 
-    for (let code of country.borders) {
-        fetch(`https://restcountries.com/v2/alpha/${code}`)
-        .then(res => res.json())
-        .then(data => {
-            const butEl = document.createElement("button");
-            butEl.innerText = data.name;
-            countryBorderButtonsDiv.append(butEl);
-        })
+    if (country.borders) {
+        for (let code of country.borders) {
+            fetch(`https://restcountries.com/v2/alpha/${code}`)
+            .then(res => res.json())
+            .then(data => {
+                const butEl = document.createElement("button");
+                butEl.innerText = data.name;
+                butEl.onclick = (e) => {
+                    console.log(e.target.innerText);
+                    fetch(`https://restcountries.com/v3.1/name/${e.target.innerText}?fullText=true`)
+                    .then(res => res.json())
+                    .then(data => {
+                        cards.innerHTML = null;
+                        createLargeCard(data[0]);
+                    });
+                }
+                countryBorderButtonsDiv.append(butEl);
+            })
+        }
+    } else {
+        countryBorderButtonsDiv.append("no borders")
     }
     countryBorderDiv.append(countryBorderButtonsDiv);
     mainDiv.append(countryInfoDiv);
     countryInfoDiv.append(countryBorderDiv);
     cards.append(mainDiv);
 }
+
 
 // fetch all countries and append to the cards-div as cards
 function getAllCountries() {
@@ -109,11 +127,12 @@ function getAllCountries() {
     });
 }
 
+
 // get user inputs 
 userSearch.addEventListener("keyup", (e) => {
     if (e.key == "Enter") {
         cards.innerHTML = null;
-        fetch(`https://restcountries.com/v3.1/name/${e.target.value}`)
+        fetch(`https://restcountries.com/v3.1/name/${e.target.value}?fullText=true`)
         .then(res => res.json())
         .then(data => {
             for (let country of data) {
@@ -124,6 +143,7 @@ userSearch.addEventListener("keyup", (e) => {
         e.target.value = null;
     }
 }); 
+
 
 // get user input for region dropdown
 userSelectedRegion.addEventListener("change", (e) => {
